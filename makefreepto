@@ -2,176 +2,154 @@
 #set -x
 
 usage() {
-    cat <<EOF
+	cat <<EOF
 $0 [-br] DEVICE
 Options:
-    -b         skip badblocks check
-    -r         skip random filling (use only if you know what you are doing)
-    -w         skip dd of binary.img
-    -i IMAGE   put IMAGE on DEVICE (default is binary.img)
-    -p         set password (defaul is "freepto")
-    -s         set secure random password (default is "freepto")
+	-b			skip badblocks check
+	-r			skip random filling (use only if you know what you are doing)
+	-w			skip dd of binary.img
+	-i IMAGE	put IMAGE on DEVICE (default is binary.img)
 EOF
 }
 
-# set color:
-export LRED="\e[1;31m"
-export LGREEN="\e[1;32m"                                                                                                                                               
-export Z="\e[0m"
-
-# check if user is root:
+#Check if user is root
 if [ "$(id -u)" != "0" ]; then
-   echo -e "$LRED[-] Only root can do that! $Z" 1>&2
-   exit 1
+#echo "[-] This script must be run as root" 1>&2
+	zenity --error --text="Devi essere root per eseguire questo script"
+	exit 1
 fi
 
-# set default:
 skip_badblocks=0
 skip_random=0
 skip_img=0
-password="freepto"
 img=binary.img
-log="./makefreepto.log"
 
-while getopts 'brp:wsi:' opt; do
-    case $opt in
-    b)
-        skip_badblocks=1
-        ;;
-    r)
-        skip_random=1
-        ;;
-    i)
-        img=$OPTARG
-        ;;
-    w)
-        skip_img=1
-        ;;
-    p)
-        password=$OPTARG
-        ;;
-    s)
-        password=`tr -dc 'a-zA-H0-9' < /dev/urandom | head -c 12`
-        echo -e "$LGREEN[+]$Z Your LUKS random passphrase is: $LRED$password$Z"
-        ;;
-    \?)
-        echo -e "$LRED[-] Invalid option: -$OPTARG $Z" >&2
-        usage
-        exit 1
-        ;;
-    esac
+while getopts 'brwi:' opt; do
+	case $opt in
+	b)
+		skip_badblocks=1
+		;;
+	r)
+		skip_random=1
+		;;
+	i)		img=$OPTARG
+		;;
+	w)		skip_img=1
+		;;
+	\?)
+		echo "[-] Invalid option: -$OPTARG" >&2
+		usage
+		exit 1
+		;;
+	esac
 done
 shift $((OPTIND-1))
 
-# some control check
 if ! [[ -f "$img" ]]; then
-    echo -e "$LRED[-] Image $img not exist or is not valid $Z"
-    exit 1
+	echo "[-] Image $img is not valid"
+	exit 1
 fi
 
-if [ $# != 1 ];then
-    echo -e "$LRED[-] Wrong argument number $Z"
-    usage
-    exit 1
-fi
+#if [$# != 1 ]; then
+#	echo "[-] Wrong argument number"
+#	usage
+#	exit 1
+#fi
 
 if ! [[ -b $1 ]]; then
-    echo -e "$LRED[-]$1 should be a block special device $Z"
-    usage
-    exit 1
+	echo "[-] $1 should be a block special device"
+	usage
+	exit 1
 fi
-
-# set device
 device=$1
 
-# check dependencies
+#check dependencies
 if ! which mkfs.btrfs &> /dev/null; then
-     echo -e "$LRED[-] No btrfs. Setting up btrfs-tools $Z"
-     sudo apt-get --force-yes --yes install btrfs-tools >> $log 2>&1
-     echo -e "$LGREEN[+] $Z btrfs-tools package installed!"
+	dialog 	--title "btrfs tools missing" \
+			--backtitle "Freepto make script" \
+			--yesno "Do you wish to install the btrfs-tools package" 7 60
+	response=$?
+	case $response in
+#		echo "[-] No btrfs. Setting up btrfs-tools"
+			0) apt-get --force-yes --yes install btrfs-tools && echo "[+] Btrfs tools installed!";;
+			1) exit 1;;
+	esac
 fi
 if ! which cryptsetup &> /dev/null; then
-     echo -e "$LRED[-] No cryptsetup. Setting up cryptsetup $Z"
-     sudo apt-get --force-yes --yes install cryptsetup >> $log 2>&1
-     echo -e "$LGREEN[+]$Z cryptsetup pakcage installed!"
+		echo "[-] No cryptsetup. Setting up cryptsetup"
+		sudo apt-get --force-yes --yes install cryptsetup && echo "[+] Cryptsetup installed!"
 fi
 
-# umount device and clean all partition:
-echo -e "$LGREEN[+]$Z Umount device ${device}"
-umount ${device} > $log 2>&1
-echo -e "$LGREEN[+]$Z Remove all partition on ${device}"
-mkfs.ext4 -F ${device} > $log 2>&1
+# Start
+echo "[+] Start"
 
-# check for bad block on the device:
+# Check for bad block on the device:
 if [[ $skip_badblocks -eq 0 ]]; then
-    echo -e "$LGREEN[+]$Z Badblock check started..."
-    badblocks -c 10240 -s -w -t random -v "${device}" >> $log 2>&1
-    echo -e "$LGREEN[+]$Z Badblock check completed!"
+    badblocks -c 10240 -s -w -t random -v "${device}"
+    echo "[+] Badblock check completed!"
 fi
 
-# write random data on the device:
+# Random data on the device:
 if [[ $skip_random -eq 0 ]]; then
-    echo -e "$LGREEN[+]$Z Writing random data on the device!"
-    dd if=/dev/urandom of="${device}" >> $log 2>&1
-    echo -e "$LGREEN[+]$Z Random writing completed!"
+    echo "[+] Writing random data on the device!"
+    dd if=/dev/urandom of="${device}"
+    echo "[+] Completed!"
 fi
 
-# copy binay image with dd:
-echo -e "$LGREEN[+]$Z Starting copy"
+# DD the .img to a usb
+echo -n "[+] Starting copy"
 if [[ $skip_img -eq 0 ]]; then
 	dd "if=$img" of="${device}" &
 	ddpid=$!
-	echo " with PID $ddpid"
+	echo "with PID $ddpid"
 	totchar=$(stat -c '%s' "$img")
 	humansize=$(du -h "$img" | cut -f1)
 	while kill -0 $ddpid; do
-	    wchar=$(egrep '^wchar:' /proc/$ddpid/io | awk '{ print $2 }')
-	    echo -en "\rWriting $humansize: $((wchar * 100 / totchar))%"
-	    sleep 10
+		wchar=$(egrep '^wchar:' /proc/$ddpid/io | awk '{ print $2 }')
+		echo -en "\rWriting $humansize: $((wchar * 100 / totchar))%"
+		sleep 10
 	done
 	wait
-	echo -e "$LGREEN[+]$Z Completed!"
+	echo "[+] Completed!"
 fi
 
-# make the partition:
-echo -e "$LGREEN[+]$Z Make encrypted persistent partition"
+
+# Make the partition
+echo "[+] Make encrypted and persistent partition"
 img_bytes=$(stat -c %s "$img")
 img_bytes=$((img_bytes+1))
 
-if [ -e "${device}"2 ]; then
-	echo -e "$LRED[-]$Z warning: ${device}2 seems to already exist!"
+if [ -e "${device}2" ]; then
+	echo "[W] warning: ${device}2 seems to already exist!"
 fi
-partprobe 
+partprobe
 parted "${device}" -- mkpart primary "${img_bytes}B" -1
 partprobe #it was fun, let's do it again
 
-# encrypt partition
-cryptsetup --verbose --batch-mode --key-size 512 --hash sha512 --cipher aes-xts-plain --use-random luksFormat "${device}2" <<<${password} || exit 1
+# Encrypt partition
+cryptsetup --verbose --batch-mode --key-size 512 --hash sha512 --cipher aes-xts-plain --use-random luksFormat "${device}2" <<<freepto || exit 1
 
-# open LUKS
-cryptsetup luksOpen "${device}2" my_usb.$$ <<<${password} || exit 1
+# Open partition
+cryptsetup luksOpen "${device}2" my_usb.$$ <<<freepto || exit 1
 
-# make FS with label: "persistence"
-mkfs.btrfs -L persistence /dev/mapper/my_usb.$$ >> $log 2>&1 || exit 1
+# Make FS with label: "persistence"
+mkfs.btrfs -L persistence /dev/mapper/my_usb.$$ || exit 1
 
-# make a mount point
-mkdir -p /mnt/freepto.$$
+# Make a mount point
+mkdir -p /mnt/my_usb.$$
 
-# mount the partition
-sleep 2
-mount /dev/mapper/my_usb.$$ /mnt/freepto.$$/ -o noatime,nodiratime,compress=lzo
+# Mount the partition
+mount /dev/mapper/my_usb.$$ /mnt/my_usb.$$/ -o noatime,nodiratime,compress=lzo
 
-# make the persistence.conf file
-sleep 2
+# Make the persistence.conf file
 echo "/ union" > ~/persistence.conf
-mv ~/persistence.conf /mnt/freepto.$$
+mv ~/persistence.conf /mnt/my_usb.$$
 
-# umount partition and close LUKS
-umount /mnt/freepto.$$ >> $log 2>&1 && cryptsetup luksClose /dev/mapper/my_usb.$$ >> $log 2>&1
+# Umount
+umount /dev/mapper/my_usb.$$
 
-# remove mount dir
-rm -rf /mnt/freepto.$$ >> $log 2>&1
+# Close LUKS
+cryptsetup luksClose /dev/mapper/my_usb.$$
 
-# stop
-echo -e "$LGREEN[+]$Z Freepto is ready for use"
-
+# Remove mount dir
+rm -rf /mnt/my_usb.$$
