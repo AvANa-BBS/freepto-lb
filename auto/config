@@ -16,18 +16,17 @@ lb config noauto \
     --system live \
     --apt-source-archives false \
     --debian-installer false \
+    --bootappend-install noprompt \
     --bootappend-live "\
-    --bootappend-install "noprompt" \
     boot=live \
     config \
-    quickreboot \
     persistence-encryption=luks \
     persistence-media=removable-usb \
     username=paranoid \
-    live-config.hooks=filesystem \
     hostname=freepto \
     persistence \
     live-config.locales=it_IT.UTF-8 live-config.timezone=Europe/Rome live-config.keyboard-layouts=it \
+    live-config.hooks=filesystem \
     " \
     --archive-areas "main contrib non-free" \
     --apt-recommends true \
