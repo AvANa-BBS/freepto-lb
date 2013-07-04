@@ -16,6 +16,7 @@ lb config noauto \
     --system live \
     --apt-source-archives false \
     --debian-installer false \
+    --debian-installer-gui false \
     --bootappend-install noprompt \
     --bootappend-live "\
     boot=live \

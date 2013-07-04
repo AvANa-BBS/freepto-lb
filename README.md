@@ -1,4 +1,4 @@
-freepto-lb
+Freepto-lb
 ==========
 
 Encrypted GNU/Linux OS (based on Debian Wheezy) wich can be installed on USB flash drive.
@@ -6,61 +6,47 @@ Encrypted GNU/Linux OS (based on Debian Wheezy) wich can be installed on USB fla
 Freepto is designed for encrypt your communications (OTR, GPG, SSL), carry your documents in secure way (LUKS) and save your anonymity (TOR, OPENVPN)
 
 
-Chroot Debian Sid
-=================
-
-1. Make chroot:
-
- $ sudo debootstrap --include=debian-keyring,debian-archive-keyring,cryptsetup,live-build,git,ca-certificates --arch i386 sid ~/freepto-lb/
-
-2. User chroot:
-
- $ sudo chroot ~/freepto-lb /bin/bash
-
-
-Cache for APT (if you use a non-chroot debian sid):
-=========================
-
-1. Install apt-cacher-ng
-
- $ apt-get install apt-cacher-ng
- 
- $ /etc/init.d/apt-cacher-ng start
- 
-2. Set http_proxy:
- 
- $ export http_proxy=http://localhost:3142/
-
-
-Build
-=====
-
-1. Make your build.img
-
- $ git clone https://github.com/AvANa-BBS/freepto-lb.git
-
- $ cd freepto-lb
- 
- $ lb config && lb build
- 
-
 Make Freepto
 ============
 
-1. Use "dmesg" to identify the usb device:
+### Make chroot:
+> $ sudo debootstrap --include=debian-keyring,debian-archive-keyring,cryptsetup,live-build,git,ca-certificates --arch i386 sid ~/freepto-lb/
 
- $ dmesg
+> $ sudo chroot ~/freepto-lb /bin/bash
 
-2. Run makefreepto
+### Cache for APT (only if you use a non-chrooted debian sid):
+> $ sudo apt-get install apt-cacher-ng
 
- $ bash makefreepto -h
+> $ sudo /etc/init.d/apt-cacher-ng start
 
- $ bash makefreepto -i binary.img -p myS3cr3t#luksp4ssw0rd /dev/sdX
- 
- 
-Read Documentation
-==================
+> $ export http_proxy=http://localhost:3142/
 
- https://we.riseup.net/avana/freepto-docs
- 
- http://avana.forteprenestino.net/freepto
+### Make your Freepto image:
+> $ sudo apt-get install install live-build
+
+> $ git clone https://github.com/AvANa-BBS/freepto-lb.git
+
+> $ cd freepto-lb
+
+> $ lb config && lb build
+
+### Create USB Pen Drive:
+
+Use "dmesg" to identify the usb device:
+> $ dmesg
+
+Run make-freepto.sh:
+> $ sudo bash makefreepto -h
+
+> $ sudo bash makefreepto -i binary.img -p myS3cr3t#luksp4ssw0rd /dev/sdX
+
+### Read documentation:
+https://we.riseup.net/avana/freepto-docs
+
+http://avana.forteprenestino.net/freepto
+
+### Screenshots:
+
+![](http://avana.forteprenestino.net/freepto/img/screenshot/freepto1.png)
+![](http://avana.forteprenestino.net/freepto/img/screenshot/freepto3.png)
+![](http://avana.forteprenestino.net/freepto/img/screenshot/freepto4.png)

@@ -2,43 +2,17 @@ Generated File. Do not edit.
 
 [HEADER]
 Version:0.15:$
-Arch:x86_64-gcc3:$
+Arch:x86-gcc3:$
 
 [PLUGINS]
 libflashplayer.so:$
-/usr/lib/flashplugin-installer/libflashplayer.so:$
+/usr/lib/flashplugin-nonfree/libflashplayer.so:$
 11,2,202,291:$
-1371119526000:0:5:$
+1369359101000:0:1:$
 Shockwave Flash 11.2 r202:$
 Shockwave Flash:$
 2
 0:application/x-shockwave-flash:Shockwave Flash:swf:$
 1:application/futuresplash:FutureSplash Player:spl:$
-libnpgtpo3dautoplugin.so:$
-/opt/google/talkplugin/libnpgtpo3dautoplugin.so:$
-:$
-1370379401000:0:5:$
-Google Talk Plugin Video Accelerator version:0.1.44.29:$
-Google Talk Plugin Video Accelerator:$
-1
-0:application/vnd.gtpo3d.auto:O3D MIME::$
-libnpgoogletalk.so:$
-/opt/google/talkplugin/libnpgoogletalk.so:$
-:$
-1370379397000:0:5:$
-Version: 4.0.1.0:$
-Google Talk Plugin:$
-1
-0:application/googletalk:Google Talk Plugin:googletalk:$
-libnpo1d.so:$
-/opt/google/talkplugin/libnpo1d.so:$
-:$
-1370379396000:0:5:$
-Version: 4.0.1.0:$
-Google Talk Plugin Video Renderer:$
-1
-0:application/o1d:Google Talk Plugin Video Renderer:o1d:$
 
 [INVALID]
-/usr/lib/mozilla/plugins/npwrapper.nppdf.so:$
-1362054710000:$

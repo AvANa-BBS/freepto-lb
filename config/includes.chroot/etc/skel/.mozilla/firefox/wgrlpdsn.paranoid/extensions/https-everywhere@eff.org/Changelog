@@ -1,3 +1,95 @@
+3.2.3                                         (2013-06-28)
+  * https://trac.torproject.org/projects/tor/query?group=status&milestone=HTTPS-E+3.2.3
+
+chrome-2012.6.4
+  * The "factors of 12" chromium beta
+  * Various ruleset fixes:
+    https://eff.org/r.5bSj
+    https://trac.torproject.org/projects/tor/ticket/8584
+    https://trac.torproject.org/projects/tor/ticket/8571
+  * Disable Myspace by default due to mixed content
+
+4.0development.8                              (2013-06-04)
+  * Fix broken ruleset dialog in Firefox 22+
+    https://trac.torproject.org/projects/tor/ticket/8997
+  * The toolbar button chnages to indicate active rulesets:
+    https://trac.torproject.org/projects/tor/ticket/4886 
+  * Ship 31 new rulesets
+  * New translations: Japanese and Sinhala
+  * Updated translations: Hungarian, Lithuanian, Slovenian
+  * Ruleset fixes from 3.2.2:
+    https://eff.org/r.5bSj
+  * Observatory cert whitelist update
+  
+3.2.2                                         (2013-05-22)
+  * Quick turn-around release to unbreak support.apple.com
+  * Fixes for a number of other ruleset bugs:
+    https://eff.org/r.5bSj
+  * Incremental observatory cert whitelist update
+
+3.2.1                                         (2013-05-17)
+  * Implement XHR outstanding request limits to work around TCP connection
+    exhaustion if the SSL Observatory server is slow or down:
+    https://trac.torproject.org/projects/tor/ticket/8670
+    https://bugzilla.mozilla.org/show_bug.cgi?id=856748
+  * Overdue update to the Observatory cert whitelist
+  * Other known ruleset fixes: EA, Yandex, Apple
+    https://trac.torproject.org/projects/tor/ticket/8584
+    https://trac.torproject.org/projects/tor/ticket/8571
+
+4.0development.7                              (2013-05-17)
+  * Implement XHR outstanding request limits to work around TCP connection
+    exhaustion if the SSL Observatory server is slow or down:
+    https://trac.torproject.org/projects/tor/ticket/8670
+    https://bugzilla.mozilla.org/show_bug.cgi?id=856748
+  * Add a note hinting users how to toggle rulesets (thanks to Pavel Kazakov)
+    https://trac.torproject.org/projects/tor/ticket/4967
+  * Ship all fixes from 3.2:
+    https://eff.org/r.b9Qc
+  * Other known ruleset fixes: EA, Yandex
+    https://trac.torproject.org/projects/tor/ticket/8571
+  * Ship 1308 new rulesets!
+  * Numerous new and updated translations
+
+chrome-2012.4.30
+  * The "May day somewhere" chromium beta
+  * Ship all ruleset bugfixes from the Firefox 3.2 release:
+    https://eff.org/r.b9Qc
+  * Flag/disable mixed content rulesets: Apple Support, BBC, Dell support,
+    FBI, Wordpress, Zend
+    https://eff.org/r.1bQt
+  * Disable VistaX64
+    https://trac.torproject.org/projects/tor/ticket/8801
+
+3.2                                           (2013-04-25)
+  * Related trac bugs for this release:
+    https://eff.org/r.b9Qc
+  * New: MoinMoin
+  * Fixes: Adobe, Bahn.de, Cloudfront, Dell, Droplr, FBI, Google Maps,
+    Joomla, Juno Download, Lenovo, New York Times, SEC, Soundcloud,
+    Tweakers.net, Univ Strasbourg, Vkontakte, Zend
+  * Disable broken: AirAsia, Netvibes, Newgrounds, Pirate Bay, Russia Today, SVT,
+    Wolfram Alpha
+  * Maybe fixed: Quantcast/Tumblr:
+    https://trac.torproject.org/projects/tor/ticket/8406 (maybe fixed)
+  * Sync languages and translations from the master branch.
+  * New languages: Finnish, Norwegian (Bokmål), Slovak, Bulgarian.
+  * All HTTPS Everywhere users will be now prompted about using the
+    SSL Observatory.
+
+chrome-2012.3.7
+  * The "cookies uncrumbled" chromium beta
+  * Ship all ruleset bugfixes from Firefox 3.1.4
+  * Stop securing HTTP (non-S) cookies in weird cases!!!
+    https://trac.torproject.org/projects/tor/ticket/7492
+
+4.0development.6                              (2013-03-07)
+  * Disabled 26 broken or problematic rulesets
+  * Ship all ruleset fixes from 3.1.4
+  * Ship 232 new rulesets
+  * Numerous ruleset fixes
+  * Update cert whitelist
+
 3.1.4                                         (2013-03-07)
   * The circles are stable releasee
   * Fixes:
@@ -8,8 +100,6 @@
     https://trac.torproject.org/projects/tor/ticket/8349
     https://trac.torproject.org/projects/tor/ticket/7690
     https://trac.torproject.org/projects/tor/ticket/8025
-    http://bugs.mysql.com/bug.php?id=67311
-    https://trac.torproject.org/projects/tor/ticket/7615
     https://trac.torproject.org/projects/tor/ticket/8077
     https://trac.torproject.org/projects/tor/ticket/8199
     https://trac.torproject.org/projects/tor/ticket/8198
@@ -25,7 +115,7 @@ chrome-2013.1.18
   * "Internet Freedom" chromium beta
   * Import all ruleset fixes from Firefox 3.1.3
 
-4.0development.5                              (2013-01-18)
+4.0development.5                              (2013-1-18)
   * Internet Freedom Day development release
   * Fix the implementation of safeToSecureCookie
     - Get https://trac.torproject.org/projects/tor/ticket/7491 right(er)
@@ -39,7 +129,7 @@ chrome-2013.1.18
   * Update cert whitelist
   * Update translations: Korean, Polish, French
 
-3.1.3                                         (2013-01-18)
+3.1.3                                         (2013-1-18)
   * Internet Freedom Day stable bugfix release
   * Fixes: CloudFront/Spotify, AmazonAWS (Amazon MP3s and product images), Libav, 
            Google Maps, UserEcho
@@ -57,7 +147,7 @@ chrome-2013.1.18
     https://trac.torproject.org/projects/tor/ticket/7865
   * Update cert whitelist
 
-3.1.2                                         (2013-01-02)
+3.1.2                                         (2013-1-2)
   * Release 3.1.2, since 3.1.1 was accidentally mis-tagged
   * Fixes for: AmazonAWS/Datawrapper, Cachefly, Cloudfront/C-SPAN, Hetzner.de
                KeyDrive/Snapnames, QT, openDesktop, OpenTTD, WhiskeyMedia
@@ -103,7 +193,7 @@ chrome-2012.12.17
   * Observatory-only translations into Hebrew and Croatian
   * Offer the SSL Observatory popup to a larger cohort of users
 
-4.0development.3                             (2012-12-03)
+4.0development.3                             (2012-12-3)
   * Hacky solution to a very nasty bug in which <securecookie> directives
     would cause cookies to be flagged as secure even if they were set from
     HTTP origins!
@@ -115,7 +205,7 @@ chrome-2012.12.17
   * (Plus fixes and rulesets disabled between 4.0dev2 and 3.0.4)
   * Observatory-only translations: Croatian, Hebrew
 
-3.0.4                                        (2012-11-09)
+3.0.4                                        (2012-11-9)
   * Fixes:
     ACLU, Amazon, Barnes & Noble, CharityNavigator, Cloudfront/Turntable.fm,
     Coursera, itella.fi, posti.fi, Uservoice
