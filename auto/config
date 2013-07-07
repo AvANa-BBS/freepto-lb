@@ -21,12 +21,14 @@ lb config noauto \
     --bootappend-live "\
     boot=live \
     config \
-    quickreboot \
+    noeject \
     persistence-encryption=luks \
     persistence-media=removable-usb \
     username=paranoid \
     hostname=freepto \
+    user-fullname=paranoid \
     persistence \
+    live-config.timezone='Europe/Rome' \
     live-config.locales=it_IT.UTF-8 live-config.timezone=Europe/Rome live-config.keyboard-layouts=it \
     live-config.hooks=filesystem \
     " \
