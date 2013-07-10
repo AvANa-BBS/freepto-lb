@@ -8,13 +8,12 @@ $0 [-br] DEVICE
 Options:
     -b         skip badblocks check
     -r         skip random filling (use only if you know what you are doing)
-    -w         skip dd of binary.img
     -i IMAGE   put IMAGE on DEVICE (default is binary.img)
     -p         set password (defaul is "freepto")
     -s         set secure random password (default is "freepto")
 
 Example:
-    sudo ./makefreepto -i freepto-lb.img -p password /dev/sdd
+    sudo ./makefreepto -i freepto-lb_vX.X.X.img -p password /dev/sdX
 
 EOF
 }
@@ -119,33 +118,31 @@ fi
 # check for bad block on the device:
 if [[ $skip_badblocks -eq 0 ]]; then
     echo -e "$LGREEN[+]$Z Badblock check started..."
-    badblocks -c 10240 -s -w -t random -v "${device}" >> $log 2>&1
+    badblocks -c 10240 -s -w -v "${device}"
     echo -e "$LGREEN[+]$Z Badblock check completed!"
 fi
 
-# write random data on the device:
+# write random data on crypto partition:
 if [[ $skip_random -eq 0 ]]; then
-    echo -e "$LGREEN[+]$Z Writing random data on the device!"
-    dd if=/dev/urandom of="${device}" >> $log 2>&1
+    echo -e "$LGREEN[+]$Z Writing random data on crypto partition!"
+    dd if=/dev/urandom of="${device}2"
     echo -e "$LGREEN[+]$Z Random writing completed!"
 fi
 
 # copy binay image with dd:
 echo -e "$LGREEN[+]$Z Starting copy"
-if [[ $skip_img -eq 0 ]]; then
-    dd "if=$img" of="${device}" &
-    ddpid=$!
-    echo " with PID $ddpid"
-    totchar=$(stat -c '%s' "$img")
-    humansize=$(du -h "$img" | cut -f1)
-    while kill -0 $ddpid; do
-        wchar=$(egrep '^wchar:' /proc/$ddpid/io | awk '{ print $2 }')
-        echo -en "\rWriting $humansize: $((wchar * 100 / totchar))%"
-        sleep 10
-    done
-    wait
-    echo -e "$LGREEN[+]$Z Completed!"
-fi
+dd "if=$img" of="${device}" &
+ddpid=$!
+echo " with PID $ddpid"
+totchar=$(stat -c '%s' "$img")
+humansize=$(du -h "$img" | cut -f1)
+while kill -0 $ddpid; do
+    wchar=$(egrep '^wchar:' /proc/$ddpid/io | awk '{ print $2 }')
+    echo -en "\rWriting $humansize: $((wchar * 100 / totchar))%"
+    sleep 10
+done
+wait
+echo -e "$LGREEN[+]$Z Completed!"
 
 # make the partition:
 echo -e "$LGREEN[+]$Z Make encrypted persistent partition"

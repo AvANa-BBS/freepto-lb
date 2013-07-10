@@ -44,7 +44,7 @@
 <li class="toc2"><a href="#truecrypt"><span>8.3</span> Truecrypt</a></li>
 <li class="toc2"><a href="#tomb-the-crypto-undertaker"><span>8.4</span> Tomb – The Crypto Undertaker</a></li>
 </ul>
-<li class="toc1"><a href="#accesso-agli-hidden-service-tor"><span>9</span> Accesso agli Hidden Service TOR.</a></li>
+<li class="toc1"><a href="#accesso-automatico-agli-hidden-service-tor"><span>9</span> Accesso automatico agli Hidden Service TOR.</a></li>
 <li class="toc1"><a href="#avviare-freepto-su-pc-non-fidati"><span>10</span> Avviare freepto su pc non fidati</a></li>
 <li class="toc1"><a href="#personalizzare-freepto"><span>11</span> Personalizzare freepto</a></li>
 <li class="toc1"><a href="#crea-un-nuova-freepto"><span>12</span> Crea un nuova freepto</a></li>
@@ -63,6 +63,7 @@ preferisce, senza bisogno di installare niente.</p>
 <p>Esistono molti altri sistemi live, ma freepto si contraddistingue per
  l’attenzione alla sicurezza e all’usabilita’, offrendo un sistema 
 pensato per le necessita’ dell’attivismo.</p>
+<p>La pagina ufficiale del progetto la trovi qui: <a href="http://avana.forteprenestino.net/freepto">avana.forteprenestino.net/freepto</a></p>
 <h2><a name="come-avvio-freepto"></a>Come avvio freepto?<a class="anchor" href="#come-avvio-freepto">¶</a></h2>
 <p>Per avviare freepto è necessario settare il proprio <span class="caps">BIOS</span> per effettuare il boot da <span class="caps">USB</span>.<br>
 Per accedere al <span class="caps">BIOS</span> solitamente è sufficiente durante l’avvio del computer premere uno di questi tasti: “F2”, “Canc” o “F10”.</p>
@@ -70,7 +71,7 @@ Per accedere al <span class="caps">BIOS</span> solitamente è sufficiente durant
 <p>Quindi, almeno in questo caso, Google è tuo amico: cerca, ad esempio “boot usb” seguito dal modello / marca del tuo computer.</p>
 <p>Configurato il <span class="caps">BIOS</span> per l’avvio da <span class="caps">USB</span>, puoi semplicemente riavviare ed aspettare che freepto venga avviata.</p>
 <p>Se tutto va per il verso giusto vedrai una schermata simile a questa:</p>
-<p><img src="freepto-docs_files/freepto1_large.png" alt=""></p>
+<p><a href="https://we.riseup.net/assets/146970/boot.png"><img src="freepto-docs_files/boot_large.png" alt=""></a></p>
 <h2><a name="come-faccio-ad-avviare-il-sistema-cifrato"></a>Come faccio ad avviare il sistema cifrato?<a class="anchor" href="#come-faccio-ad-avviare-il-sistema-cifrato">¶</a></h2>
 <p>Durante la fase di boot di freepto ti verrà chiesto di inserire una 
 passphrase per sbloccare la persistenza cifrata, con una stringa come 
@@ -122,7 +123,7 @@ menu dedicato.</p>
 <p>Tra di esse ci sono strumenti per la navigazione anonima, strumenti 
 per la pulizia dei file temporanei, strumenti di cifratura. La 
 descrizione di questi programmi e’ approfondita piu’ avanti.</p>
-<p><a href="https://we.riseup.net/assets/142158/freepto3.png"><img src="freepto-docs_files/freepto3_large.png" alt=""></a></p>
+<p><a href="https://we.riseup.net/assets/146971/menu.png"><img src="freepto-docs_files/menu_large.png" alt=""></a></p>
 <h2><a name="come-rendo-anonima-la-mia-navigazione-sul-web"></a>Come rendo anonima la mia navigazione sul web?<a class="anchor" href="#come-rendo-anonima-la-mia-navigazione-sul-web">¶</a></h2>
 <p>Tutti i seguenti tool sono già installati di default su freepto</p>
 <h3><a name="tor-browser-bundle"></a>Tor Browser Bundle<a class="anchor" href="#tor-browser-bundle">¶</a></h3>
@@ -140,7 +141,7 @@ l’ultima versione disponibile e di avvisarvi quando ne è disponibile una
  nuova, in questo modo potete averne con pochi click sempre l’ultima 
 versione disponibile.</p>
 <p>Dal menu <code>freepto</code> lancia <code>Tor Browser Settings</code>:</p>
-<p><a href="https://we.riseup.net/assets/137613/Menu%20001.png"><img src="freepto-docs_files/Menu%2520001_large.png" alt=""></a></p>
+<p><a href="https://we.riseup.net/assets/146977/freepto-menu.png"><img src="freepto-docs_files/freepto-menu_large.png" alt=""></a></p>
 <p>Seleziona come versione la <code>stable</code> e spunta <code>check for updates next launch</code></p>
 <p><a href="https://we.riseup.net/assets/137615/Tor%20Browser%20Launcher%20Settings%20002.png"><img src="freepto-docs_files/Tor%2520Browser%2520Launcher%2520Settings%2520002_large.png" alt=""></a></p>
 <p>A questo punto torbrowser-launcher scaricherà la versione più aggiornata di TorBrowser:</p>
@@ -214,17 +215,19 @@ Grazie a questo software potrai scambiare in sicurezza documenti con altre perso
 <p>Tomb è un software opensource a riga di comando che permette la gestione di file cifrati.<br>
 L’assenza di un’interfaccia grafica, lo rende idoneo ad un’utenza più esperta.</p>
 <p>Maggiori informazioni si possono trovare sul sito ufficiale: <a href="http://www.dyne.org/software/tomb/">www.dyne.org/software/tomb</a></p>
-<h2><a name="accesso-agli-hidden-service-tor"></a>Accesso agli Hidden Service <span class="caps">TOR</span>.<a class="anchor" href="#accesso-agli-hidden-service-tor">¶</a></h2>
-<p>Firefox su freepto è configurato per utilizzare privoxy per l’accesso
- agli Hidden Service Tor, è però necessario abilitare questa 
-funzionalità.</p>
-<p>Così facendo non è necessario abilitare TorBrowser ogni volta che si 
-vuole visitare un hidden service, anche se per garantirsi un maggiora 
-anonimato è comunque consigliato utilizzarlo.</p>
-<p>Per abilitare il proxy selezionare FoxyProxy:</p>
-<p><a href="https://we.riseup.net/assets/134434/darknet1.png"><img src="freepto-docs_files/darknet1_large.png" alt=""></a></p>
-<p>Da questo momento potete navigare anche verso gli indirizzi .onion:</p>
-<p><a href="https://we.riseup.net/assets/134435/darknet2.png"><img src="freepto-docs_files/darknet2_large.png" alt=""></a></p>
+<h2><a name="accesso-automatico-agli-hidden-service-tor"></a>Accesso automatico agli Hidden Service <span class="caps">TOR</span>.<a class="anchor" href="#accesso-automatico-agli-hidden-service-tor">¶</a></h2>
+<p>Su Freepto, Mozilla Firefox è configurato per utilizzare 
+automaticamente Tor quando si tenta di accedere agli Hidden Service, 
+ovvero tutte quelle <span class="caps">URI</span> che finiscono con 
+“.onion”. Questo è possibile grazie a FoxyProxy un plugin che permette 
+di utilizzare proxy diversi a seconda della destinazione che vogliamo 
+raggiungere.</p>
+<p>In questo modo non è necessario abilitare TorBrowser ogni volta che 
+si vuole visitare un hidden service (anche se per garantirsi un maggiora
+ anonimato è comunque consigliato utilizzarlo), ma è sufficiente 
+raggiungere il sito web “.onion” come si farebbe con qualsiasi altro 
+sito:</p>
+<p><a href="https://we.riseup.net/assets/146978/hs-firefox.png"><img src="freepto-docs_files/hs-firefox_large.png" alt=""></a></p>
 <h2><a name="avviare-freepto-su-pc-non-fidati"></a>Avviare freepto su pc non fidati<a class="anchor" href="#avviare-freepto-su-pc-non-fidati">¶</a></h2>
 <p>Se stai utilizzando freepto su un pc facilmente accessibile a 
 chiunque (magari in un internet point, nell’auletta occupata di qualche 
@@ -261,7 +264,7 @@ altro sistema operativo, scaricarlo e’ semplicissimo.</p>
 <p>Non farti spaventare dal terminale bastano pochi semplici passaggi:</p>
 <h3><a name="1-scarica-lultima-versione-di-freepto"></a>1. scarica l’ultima versione di freepto:<a class="anchor" href="#1-scarica-lultima-versione-di-freepto">¶</a></h3>
 <p>Apri il terminale e copia-incolla il seguente comando:</p>
-<pre><code>wget http://avana.forteprenestino.net/freepto/iso/{makefreepto,freepto-lb_0.1_079fc4d.img}</code></pre>
+<pre><code>wget http://avana.forteprenestino.net/freepto/iso/{makefreepto,freepto-IT_0.1.1.img}</code></pre>
 <p>Questo scarichera’ sia <code>makefreepto</code> che l’immagine effettiva.</p>
 <h3><a name="2-identifica-la-nuova-pennetta-usb"></a>2. identifica la nuova pennetta usb:<a class="anchor" href="#2-identifica-la-nuova-pennetta-usb">¶</a></h3>
 <p>Inserisci la pennetta usb ed esegui il comando seguente per identificare il “device” a cui corrisponde.</p>
@@ -288,9 +291,29 @@ Questo comando ti dira’ la dimensione (in megabytes) del dispositivo;
 questo e’ un buon metodo empirico per non confondere le pennine esterne 
 (da pochi giga) con il disco del computer (da centinaia di giga).<p></p>
 <h3><a name="3-installa-freepto"></a>3. Installa freepto<a class="anchor" href="#3-installa-freepto">¶</a></h3>
-<p>Dal terminale lancia il seguente comando:</p>
-<pre><code>bash makefreepto -i freepto-lb_0.1_079fc4d.img /dev/sdc</code></pre>
+<p>Dal terminale lancia il seguente comando (ovviamente devi sostiture a “LUkS_p4ssw0rd!&amp;” la tua password):</p>
+<pre><code>sudo bash makefreepto -i freepto-IT_0.1.1.img -p 'LUkS_p4ssw0rd!&amp;' /dev/sdb</code></pre>
+<p>Otterrai un output simile a questo:</p>
+<pre><code>[+] Umount device /dev/sdb
+[+] Remove all partition on /dev/sdb
+[+] Starting copy
+ with PID 4286
+Writing 936M: 100%1914880+0 records in
+1914880+0 records out
+980418560 bytes (980 MB) copied, 358.496 s, 2.7 MB/s
+./makefreepto: line 127: kill: (4286) - No such process
+[+] Completed!
+[+] Make encrypted persistent partition
+Information: You may need to update /etc/fstab.                           
+
+System is out of entropy while generating volume key.
+Please move mouse or type some text in another window to gather some random events.
+Generating key (50% done).
+Generating key (75% done).
+Generating key (87% done).
+Generating key (100% done).
+Command successful.
+[+] Freepto is ready for use
+</code></pre>
 </div><!-- end wiki -->
-
-
 </body></html>

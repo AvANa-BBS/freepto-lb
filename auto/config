@@ -5,7 +5,7 @@ lb config noauto \
     -a i386 \
     -b hdd \
     -d wheezy \
-    --linux-flavours 686-pae \
+    --linux-flavours "686-pae" \
     --security true \
     --apt-indices false \
     --mode debian \
