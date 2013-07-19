@@ -3,7 +3,8 @@
 
 usage() {
 cat <<EOF
-$0 [-br] DEVICE
+
+$0 [ -b ] [ -r ] [-f file_system_type ] [ -s ] [ -p luks_password ] [ -i image_path ] DEVICE
 
 Options:
     -b         skip badblocks check
@@ -11,9 +12,10 @@ Options:
     -i IMAGE   put IMAGE on DEVICE (default is binary.img)
     -p         set password (defaul is "freepto")
     -s         set secure random password (default is "freepto")
+    -f         set filesystem type: ext4 or btrfs (with lzo) (default is "ext4")
 
 Example:
-    sudo ./makefreepto -i freepto-lb_vX.X.X.img -p password /dev/sdX
+    sudo ./makefreepto -f ext4 -i freepto-lb_vX.X.X.img -p password /dev/sdX
 
 EOF
 }
@@ -32,12 +34,12 @@ fi
 # set default:
 skip_badblocks=0
 skip_random=0
-skip_img=0
 password="freepto"
 img=binary.img
 log="./makefreepto.log"
+fs="ext4"
 
-while getopts 'brp:wsi:' opt; do
+while getopts 'brf:p:si:' opt; do
     case $opt in
     b)
         skip_badblocks=1
@@ -45,11 +47,11 @@ while getopts 'brp:wsi:' opt; do
     r)
         skip_random=1
         ;;
+    f)  
+        fs=$OPTARG
+        ;;
     i)
         img=$OPTARG
-        ;;
-    w)
-        skip_img=1
         ;;
     p)
         password=$OPTARG
@@ -151,7 +153,7 @@ img_bytes=$((img_bytes+1))
 
 partprobe 
 parted "${device}" -- mkpart primary "${img_bytes}B" -1
-partprobe #it was fun, let's do it again
+partprobe 
 
 # encrypt partition
 cryptsetup --verbose --batch-mode --key-size 512 --hash sha512 --cipher aes-xts-plain --use-random luksFormat "${device}2" <<<${password} || exit 1
@@ -159,21 +161,28 @@ cryptsetup --verbose --batch-mode --key-size 512 --hash sha512 --cipher aes-xts-
 # open LUKS
 cryptsetup luksOpen "${device}2" my_usb.$$ <<<${password} || exit 1
 
-# make FS with label: "persistence"
-mkfs.btrfs -L persistence /dev/mapper/my_usb.$$ >> $log 2>&1 || exit 1
-
-# make a mount point
-mkdir -p /mnt/freepto.$$
-
-# mount the partition
-mount /dev/mapper/my_usb.$$ /mnt/freepto.$$/ -o noatime,nodiratime,compress=lzo
+if [[ $fs == "btrfs" ]]; then
+    # make FS with label: "persistence"
+    mkfs.btrfs -L persistence /dev/mapper/my_usb.$$ >> $log 2>&1 || exit 1
+    # make a mount point
+    mkdir -p /mnt/freepto.$$
+    # mount the partition
+    mount /dev/mapper/my_usb.$$ /mnt/freepto.$$/ -o noatime,nodiratime,compress=lzo
+elif [[ $fs == "ext4" ]]; then
+    # make FS with label: "persistence"
+    mkfs.ext4 -L persistence /dev/mapper/my_usb.$$ >> $log 2>&1 || exit 1
+    # make a mount point
+    mkdir -p /mnt/freepto.$$
+    # mount the partition
+    mount /dev/mapper/my_usb.$$ /mnt/freepto.$$/ -o noatime,nodiratime
+fi
 
 # make the persistence.conf file
-sleep 4
+sleep 5
 echo "/ union" > /mnt/freepto.$$/persistence.conf
 
 # umount partition and close LUKS
-sleep 4
+sleep 5
 umount /mnt/freepto.$$ >> $log 2>&1 && cryptsetup luksClose /dev/mapper/my_usb.$$ >> $log 2>&1
 
 # remove mount dir

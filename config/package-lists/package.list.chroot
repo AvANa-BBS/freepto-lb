@@ -22,6 +22,7 @@ task-laptop
 task-print-server
 xfce4-utils
 task-xfce-desktop
+evince
 
 # Flash (Shit!)
 flashplugin-nonfree
