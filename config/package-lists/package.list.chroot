@@ -30,7 +30,12 @@ flashplugin-nonfree
 libreoffice-writer
 libreoffice-calc
 libreoffice-impress
+#if LOCALE es_AR es_BO es_CL es_CO es_CR es_DO es_EC es_ES es_ES@euro es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
+libreoffice-l10n-es
+#endif
+#if LOCALE it_IT it_CH it_IT@euro
 libreoffice-l10n-it
+#endif
 
 # Network:
 tor
@@ -63,11 +68,21 @@ pyrit
 # Firefox:
 linuxmint-keyring
 firefox
+#if LOCALE es_AR es_BO es_CL es_CO es_CR es_DO es_EC es_ES es_ES@euro es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
+firefox-l10n-es
+#endif
+#if LOCALE it_IT it_CH it_IT@euro
 firefox-l10n-it
+#endif
 
 # Mail and GPG
 thunderbird
+#if LOCALE es_AR es_BO es_CL es_CO es_CR es_DO es_EC es_ES es_ES@euro es_GT es_HN es_MX es_NI es_PA es_PE es_PR es_PY es_SV es_US es_UY es_VE
+thunderbird-l10n-es
+#endif
+#if LOCALE it_IT it_CH it_IT@euro
 thunderbird-l10n-it
+#endif
 seahorse
 
 # Tools
