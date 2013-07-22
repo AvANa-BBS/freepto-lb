@@ -18,11 +18,23 @@
 </action>
 <action>
 	<icon>gcr-key</icon>
-	<name>Cancellazione Sicura</name>
-	<command>shred -fuz %F</command>
+	<name>Cancellazione Sicura dei File</name>
+	<command>srm -l %F</command>
 	<description>Elimina in maniera sicura i documenti dal tuo computer</description>
 	<patterns>*</patterns>
 	<text-files/>
+	<audio-files/>
+	<image-files/>
+	<video-files/>
+	<other-files/>
+</action>
+<action>
+        <icon>gcr-key</icon>
+        <name>Cancellazione Sicura delle Directory</name>
+        <command>srm -l -r %F</command>
+        <description>Elimina in maniera sicura i documenti dal tuo computer</description>
+        <patterns>*</patterns>
+        <directories/>
 </action>
 </actions>
 
