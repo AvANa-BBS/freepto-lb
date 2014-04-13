@@ -29,7 +29,7 @@
 	<name>Secure delete of files</name>
 	<name xml:lang="it">Cancellazione Sicura dei File</name>
 	<name xml:lang="es">Borrar con seguridad los ficheros</name>
-	<command>srm -l %F</command>
+	<command>if zenity --question --text "Really sure?\n(Cannot undo)"; then srm -l %F; fi</command>
 	<description>Delete in a secure way the file from you computer</description>
 	<description xml:lang="it">Elimina in maniera sicura i documenti dal tuo computer</description>
 	<description xml:lang="es">Borra de manera segura los ficheros de tu ordenados</description>
@@ -45,7 +45,7 @@
 	<name>Secure delete of directories</name>
         <name xml:lang="it">Cancellazione Sicura delle Directory</name>
 	<name xml:lang="es">Borra con seguridad las carpetas</name>
-        <command>srm -l -r %F</command>
+	<command>if zenity --question --text "Really sure?\n(Cannot undo)"; then srm -l -r %F; fi</command>
 	<description>Delete in a secure way the file from you computer</description>
 	<description xml:lang="it">Elimina in maniera sicura i documenti dal tuo computer</description>
 	<description xml:lang="es">Borra de manera segura los ficheros de tu ordenados</description>

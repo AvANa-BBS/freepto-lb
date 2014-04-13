@@ -13,7 +13,7 @@ You need a debian wheezy  and some packages installed:
 `aptitude install live-build python git-core debootstrap`
 
 Just clone a repository and run
-`freepto-config.sh -l it_IT && lb build`
+`freepto-config.sh -l it_IT.UTF-8 && lb build`
 
 and you'll find a binary.img file :)
 
