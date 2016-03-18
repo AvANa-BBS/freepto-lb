@@ -1,3 +1,23 @@
+Freepto is discontinued
+=======================
+
+During these years we developed Freepto with the main goal of providing a ready-to-use, encrypted OS to whoever was willing to abandon proprietary OS.
+
+For security reasons it is paramunt to keep Freepto always up-to-date.
+Unfortunately, this requires lot of time, and the current developer team is not able to keep up with it.
+
+Also, some choices we took 3 years ago now show up all their limits:
+
+We considered that attacks such as malware were possible only in a limited number of cases and distinct from mass-surveilance techniques.
+It is now evident that we were wrong, and that advanced attacks are quite common.
+We preferred not using Tor extensively, thinking that the slowness of such a network would be too much of a burden to our users; in the meanwhile, 
+Tor got faster, while we reconsidered that usability need a broad project, capable of writing good documentation and develop carefully designed interfaces
+
+Therefore, we are ending Freepto development.
+
+We suggest to Freepto users to give a try to Tails, a live OS focused on privacy and anonimity. Read more on Tails website: https://tails.boum.org/
+
+
 Freepto-lb
 ==========
 
